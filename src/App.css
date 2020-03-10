@@ -4,13 +4,17 @@
 }
 
 input {
-  padding: 12px 16px 17px;
+  padding: 16px;
   border: 1px solid #ccc;
   width: 100%;
   box-sizing: border-box;
   font-size: 14px;
   margin-right: 5px;
   margin-bottom: 24px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
 }
 
 button {
