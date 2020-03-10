@@ -27,7 +27,7 @@ function App() {
         {data.map((store, index) => (
           <li key={index}>
             <h2>
-              <a href={`https://map.naver.com/v5/search/${store.addr}`} target="_blank" rel="noopener noreferrer">
+              <a href={`nmap://search?query=${store.addr}&appname=com.example.myapp`} target="_blank" rel="noopener noreferrer">
                 {store.name}  
               </a>
               {store.remain_stat === 'plenty' && <span className="green">100개 이상</span>}
