@@ -10,10 +10,11 @@ function App() {
     e.preventDefault();
     const url = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByAddr/json?address=${address}`;
     const response = await axios.get(url);
-    const stores = response.data.stores.filter(store => (
-      store.remain_stat === 'plenty' || store.remain_stat === 'some' || store.remain_stat === 'few'
-    ))
-    setData(stores);
+    const stores = response.data.stores
+    const plenty = stores.filter(store => store.remain_stat === 'plenty')
+    const some = stores.filter(store => store.remain_stat === 'some')
+    const few = stores.filter(store => store.remain_stat === 'few')
+    setData([...plenty,...some,...few]);
   }
   return (
     <div className="App">
