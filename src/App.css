@@ -65,3 +65,14 @@ span.gray {
   background: #868e96;
   color: #ffffff;
 }
+
+a {
+  text-decoration: underline;
+  outline: none;
+  color: #000000;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+  color: #000000;
+}

@@ -16,6 +16,7 @@ function App() {
     const few = stores.filter(store => store.remain_stat === 'few')
     setData([...plenty,...some,...few]);
   }
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -26,13 +27,17 @@ function App() {
         {data.map((store, index) => (
           <li key={index}>
             <h2>
-              {store.name}
+              <a href={`https://map.naver.com/v5/search/${store.addr}`} target="_blank" rel="noopener noreferrer">
+                {store.name}  
+              </a>
               {store.remain_stat === 'plenty' && <span className="green">100개 이상</span>}
               {store.remain_stat === 'some' && <span className="yellow">30개 이상 100개미만</span>}
               {store.remain_stat === 'few' && <span className="red">2개 이상 30개 미만</span>}
               {store.remain_stat === 'empty' && <span className="gray">1개 이하</span>}
             </h2>
-            <p>{store.addr}</p>
+            <p>
+              {store.addr}
+            </p>
             <p>입고 시간: {store.stock_at}</p>
           </li>
         ))}
