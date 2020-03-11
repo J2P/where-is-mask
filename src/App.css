@@ -20,12 +20,27 @@ input {
 ul {
   list-style: none;
   font-size: 13px;
+  margin-top: 32px;
 }
 
 li {
   text-align: left;
-  border-bottom: 1px solid #ccc;
-  padding: 12px 0;
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+li.green {
+  background: #ebfbee;
+}
+li.yellow {
+  background: #fff9db;
+}
+li.red {
+  background: #fff5f5;
+}
+li.gray {
+  background: #f8f9fa;
 }
 
 h2 {
@@ -75,8 +90,15 @@ a:hover, a:active {
 .label {
   display: inline-block;
   padding: 4px;
-  background: rgb(4, 124, 243);
+  background: #15aabf;
   color: #FFFFFF;
   margin: 0 4px;
   border-radius: 5px;
+}
+
+.sweet-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
 }
