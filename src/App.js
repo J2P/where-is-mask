@@ -74,30 +74,37 @@ function App() {
       </div>
       {data ? (
         <ul>
-          {data.map((store, index) => (
-            <li key={index} className={getBgColor(store.remain_stat)}>
-              <h2>
-                <a href={`nmap://search?query=${store.addr}&appname=com.example.myapp`} target="_blank" rel="noopener noreferrer">
-                  {store.name}  
-                </a>
-                {store.remain_stat === 'plenty' && <span className="green">100개 이상</span>}
-                {store.remain_stat === 'some' && <span className="yellow">30개 이상 100개미만</span>}
-                {store.remain_stat === 'few' && <span className="red">2개 이상 30개 미만</span>}
-                {store.remain_stat === 'empty' && <span className="gray">1개 이하</span>}
-              </h2>
-              <p>
-                {store.addr}
-              </p>
-              <p>입고 시간: {store.stock_at}</p>
-            </li>
-          ))}
+          {data.map((store, index) => {
+            return (
+              <li key={index} className={getBgColor(store.remain_stat)}>
+                <article>
+                  <h2>
+                    <a href={`nmap://search?query=${store.addr}&appname=com.example.myapp`} target="_blank" rel="noopener noreferrer">
+                      {store.name}
+                    </a>
+                  </h2>
+                  <p>
+                    {store.addr}
+                  </p>
+                  <p>입고 시간: {store.stock_at}</p>
+                </article>
+                <div className={getBgColor(store.remain_stat)}>
+                  <span className="mask"></span>
+                  {store.remain_stat === 'plenty' && <span className="count">100 ~</span>}
+                  {store.remain_stat === 'some' && <span className="count">30 ~ 100</span>}
+                  {store.remain_stat === 'few' && <span className="count">2 ~ 30</span>}
+                  {store.remain_stat === 'empty' && <span className="count">1</span>}
+                </div>
+              </li>
+            )
+          })}
         </ul>
       ) : (
         <div className="sweet-loading">
           <BeatLoader
             size={15}
             margin={5}
-            color={"#15aabf"}
+            color={"#66d9e8"}
             loading={loading}
           />
         </div>

@@ -1,12 +1,15 @@
 .App {
   text-align: center;
-  padding: 24px 16px;
+}
+
+form {
+  padding: 24px 16px 0;
 }
 
 input {
   padding: 16px;
-  border: 1px solid #ccc;
-  width: 100%;
+  border: none;
+  width: 80%;
   box-sizing: border-box;
   font-size: 18px;
   margin-right: 5px;
@@ -15,32 +18,79 @@ input {
   -moz-appearance: none;
   appearance: none;
   outline: none;
+  border-bottom: 1px solid #66d9e8;
+  border-radius: 20px;
 }
 
 ul {
   list-style: none;
   font-size: 13px;
   margin-top: 32px;
+  padding: 24px 16px;
 }
 
 li {
   text-align: left;
-  border-radius: 5px;
-  padding: 12px;
+  border-radius: 20px;
   margin-bottom: 16px;
+  box-shadow: 2px 2px 10px -5px rgba(0, 0, 0, 0.6);
+  display: flex;
+}
+
+li article {
+  width: 70%;
+  padding: 12px;
+  background: #FFFFFF;
+  border-radius: 19px;
+}
+
+li article p {
+  color: #868E96;
+}
+
+li.green article {
+  background: #ebfbee;
+}
+li.yellow article {
+  background: #fff9db;
+}
+li.red article {
+  background: #fff5f5;
+}
+li.gray article {
+  background: #f8f9fa;
+}
+
+li div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #FFFFFF;
+  width: 23%;
 }
 
 li.green {
-  background: #ebfbee;
+  background-color: #37b24d;
 }
 li.yellow {
-  background: #fff9db;
+  background-color: #f59f00;
 }
 li.red {
-  background: #fff5f5;
+  background-color: #f03e3e;
 }
 li.gray {
-  background: #f8f9fa;
+  background-color: #868e96;
+}
+
+li div span.mask {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-image: url('./mask.svg');
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  background-position: center center;
 }
 
 h2 {
@@ -48,49 +98,48 @@ h2 {
   align-items: center;
   font-size: 18px;
   margin-bottom: 12px;
+  color: #dddddd;
 }
 
-h2 span {
+li span.count {
   font-size: 11px;
-  font-weight: normal;
-  display: inline-block;
-  margin-left: 8px;
-  padding: 4px;
-  border-radius: 5px;
+  display: block;
+  width: 100%;
+  text-align: center;
 }
 
 span.green {
-  background: #37b24d;
+  /* background-color: #37b24d; */
   color: #ffffff;
 }
 span.red {
-  background: #f03e3e;
+  /* background-color: #f03e3e; */
   color: #ffffff;
 }
 span.yellow {
-  background: #f59f00;
+  /* background-color: #f59f00; */
   color: #ffffff;
 }
 span.gray {
-  background: #868e96;
+  /* background-color: #868e96; */
   color: #ffffff;
 }
 
 a {
   text-decoration: underline;
   outline: none;
-  color: #000000;
+  color: #212529;
 }
 
 a:hover, a:active {
   text-decoration: underline;
-  color: #000000;
+  color: #212529;
 }
 
 .label {
   display: inline-block;
   padding: 4px;
-  background: #15aabf;
+  background: #66d9e8;
   color: #FFFFFF;
   margin: 0 4px;
   border-radius: 5px;
