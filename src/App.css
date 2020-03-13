@@ -139,10 +139,16 @@ a:hover, a:active {
 .label {
   display: inline-block;
   padding: 4px;
-  background: #66d9e8;
-  color: #FFFFFF;
+  background: #FFFFFF;
+  border: 1px solid #66d9e8;
+  color: #66d9e8;
   margin: 0 4px;
   border-radius: 5px;
+}
+
+.label.active {
+  background: #66d9e8;
+  color: #FFFFFF;
 }
 
 .sweet-loading {

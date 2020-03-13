@@ -7,6 +7,7 @@ function App() {
   const [address, setAddress] = useState('');
   const [data, setData] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState('');
   const [error, setError] = useState();
   const labels = [
     {short: '별내동', long: '경기도 남양주시 별내동'},
@@ -15,9 +16,11 @@ function App() {
     {short: '탄방동', long: '대전광역시 서구 탄방동'}
   ]
 
-  const handleQuickSubmit = (addr) => {
-    setAddress(addr);
-    requestStore(addr);
+  const handleQuickSubmit = (index) => {
+    const label = labels[index];
+    setSelected(label.short);
+    setAddress(label.long);
+    requestStore(label.long);
   };
 
   const requestStore =  async (addr) => {
@@ -30,8 +33,8 @@ function App() {
       const plenty = stores.filter(store => store.remain_stat === 'plenty')
       const some = stores.filter(store => store.remain_stat === 'some')
       const few = stores.filter(store => store.remain_stat === 'few')
-      // const empty = stores.filter(store => store.remain_stat === 'empty')
-      setData([...plenty,...some,...few]);
+      const empty = stores.filter(store => store.remain_stat === 'empty')
+      setData([...plenty,...some,...few, ...empty]);
     } catch (error) {
       setError(error);
     } finally {
@@ -62,6 +65,12 @@ function App() {
     }
   }
 
+  const getActive = (short) => selected === short ? 'label active' : 'label';
+
+  if (error) {
+    return <div className="App">{error}</div>
+  }
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -69,7 +78,7 @@ function App() {
       </form>
       <div>
         {labels.map((label, index) => (
-          <span key={index} className="label" onClick={() => handleQuickSubmit(label.long)}>{label.short}</span>
+          <span key={index} className={getActive(label.short)} onClick={() => handleQuickSubmit(index)}>{label.short}</span>
         ))}
       </div>
       {data ? (
@@ -79,7 +88,7 @@ function App() {
               <li key={index} className={getBgColor(store.remain_stat)}>
                 <article>
                   <h2>
-                    <a href={`nmap://search?query=${store.addr}&appname=com.example.myapp`} target="_blank" rel="noopener noreferrer">
+                    <a href={`https://map.kakao.com/?q=${store.addr}`} target="_blank" rel="noopener noreferrer">
                       {store.name}
                     </a>
                   </h2>
@@ -93,7 +102,7 @@ function App() {
                   {store.remain_stat === 'plenty' && <span className="count">100 ~</span>}
                   {store.remain_stat === 'some' && <span className="count">30 ~ 100</span>}
                   {store.remain_stat === 'few' && <span className="count">2 ~ 30</span>}
-                  {store.remain_stat === 'empty' && <span className="count">1</span>}
+                  {store.remain_stat === 'empty' && <span className="count">0</span>}
                 </div>
               </li>
             )
