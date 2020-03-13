@@ -98,7 +98,14 @@ h2 {
   align-items: center;
   font-size: 18px;
   margin-bottom: 12px;
-  color: #dddddd;
+  color: #212529;
+}
+
+time {
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 6px;
+  color: #212529;
 }
 
 li span.count {
@@ -144,6 +151,7 @@ a:hover, a:active {
   color: #66d9e8;
   margin: 0 4px;
   border-radius: 5px;
+  margin: 4px;
 }
 
 .label.active {

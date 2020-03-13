@@ -1,34 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import { ko } from 'date-fns/locale'
+import { formatDistance } from 'date-fns'
 import BeatLoader from "react-spinners/BeatLoader";
 
 function App() {
   const [address, setAddress] = useState('');
   const [data, setData] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState();
   const [error, setError] = useState();
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
   const labels = [
+    {short: '1km 이내', long: '1km 이내', meter: '1000'},
+    {short: '3km 이내', long: '3km 이내', meter: '3000'},
+    {short: '5km 이내', long: '5km 이내', meter: '5000'},
     {short: '별내동', long: '경기도 남양주시 별내동'},
     {short: '신내동', long: '서울특별시 중랑구 신내동'},
     {short: '둔산동', long: '대전광역시 서구 둔산동'},
     {short: '탄방동', long: '대전광역시 서구 탄방동'}
-  ]
+  ];
+
+  useEffect(() => {
+    function getLocation() {
+      if (navigator.geolocation) { // GPS를 지원하면
+        navigator.geolocation.getCurrentPosition(function(position) {
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude)
+        }, function(error) {
+          console.error(error);
+        }, {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity
+        });
+      } else {
+        console.log('GPS를 지원하지 않습니다');
+      }
+    }
+    getLocation();
+  }, []);
 
   const handleQuickSubmit = (index) => {
     const label = labels[index];
-    setSelected(label.short);
+    setSelected(index);
     setAddress(label.long);
-    requestStore(label.long);
+    requestStore(label.long, index);
   };
 
-  const requestStore =  async (addr) => {
+  const requestStore =  async (addr, index) => {
     setLoading(true);
     setData(undefined);
-    const url = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByAddr/json?address=${addr}`;
+    let url;
+    let params;
+    console.log(index)
+    if (index <= 2) {
+      url = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json`;
+      params = { lat, lng, m: labels[index].meter };
+    } else {
+      url = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByAddr/json`;
+      params = { address: addr };
+    }
+
+    console.log(url)
+    console.log(params)
+    
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, { params: params });
       const stores = response.data.stores
       const plenty = stores.filter(store => store.remain_stat === 'plenty')
       const some = stores.filter(store => store.remain_stat === 'some')
@@ -78,7 +118,10 @@ function App() {
       </form>
       <div>
         {labels.map((label, index) => (
-          <span key={index} className={getActive(label.short)} onClick={() => handleQuickSubmit(index)}>{label.short}</span>
+          <span key={index}>
+            <span className={getActive(label.short)} onClick={() => handleQuickSubmit(index)}>{label.short}</span>
+            {index === 2 && <br />} 
+          </span>
         ))}
       </div>
       {data ? (
@@ -95,7 +138,9 @@ function App() {
                   <p>
                     {store.addr}
                   </p>
-                  <p>입고 시간: {store.stock_at}</p>
+                  <p>
+                    <time>{formatDistance(new Date(store.stock_at), new Date(), {locale: ko})}전 입고</time>
+                  </p>
                 </article>
                 <div className={getBgColor(store.remain_stat)}>
                   <span className="mask"></span>
