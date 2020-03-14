@@ -106,7 +106,7 @@ function App() {
     }
   }
 
-  const getActive = (short) => selected === short ? 'label active' : 'label';
+  const getActive = (index) => selected === index ? 'label active' : 'label';
 
   if (error) {
     return <div className="App">{error}</div>
@@ -120,7 +120,7 @@ function App() {
       <div>
         {labels.map((label, index) => (
           <span key={index}>
-            <span className={getActive(label.short)} onClick={() => handleQuickSubmit(index)}>{label.short}</span>
+            <span className={getActive(index)} onClick={() => handleQuickSubmit(index)}>{label.short}</span>
             {index === 2 && <br />} 
           </span>
         ))}
