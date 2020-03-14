@@ -19,6 +19,7 @@ function App() {
     {short: '5km 이내', long: '5km 이내', meter: '5000'},
     {short: '별내동', long: '경기도 남양주시 별내동'},
     {short: '신내동', long: '서울특별시 중랑구 신내동'},
+    {short: '금곡동', long: '경기도 수원시 권선구 금곡동'},
     {short: '둔산동', long: '대전광역시 서구 둔산동'},
     {short: '탄방동', long: '대전광역시 서구 탄방동'}
   ];
